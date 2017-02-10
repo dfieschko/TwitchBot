@@ -1,5 +1,9 @@
+package TwitchBot;
+
 
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jibble.pircbot.*;
 
 /**
@@ -371,7 +375,7 @@ public class TwitchBot extends PircBot
 	{
             int newUsers = 0;
             User[] users = getUsers(Config.DEFAULT_CHANNEL);
-            for (User user : users) {
+            for (User user : users) { //TODO: See if there's a more efficient way to do this
                 String name = user.getNick();
                 int index = Config.viewers.findViewer(name);
                 if(index == -1)
@@ -382,7 +386,18 @@ public class TwitchBot extends PircBot
                 }
                 Config.viewers.get(index).giveReward();
             }
-            System.out.println("Minute rewards given. Number of viewers: " + users.length + " New viewers: " + newUsers);
+            System.out.println("Minute rewards given. Number of viewers: " 
+                    + users.length + " New viewers: " + newUsers);
+            if(!isConnected())
+            {
+                System.out.println("Not connected. Reconnecting:");
+                try {
+                    Config.connect();
+                    System.out.print(" Reconnected.");
+                } catch (Exception ex) {
+                    System.out.print(" Connection Failed.");
+                }
+            }
 	}
         
         /**

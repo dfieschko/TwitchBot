@@ -1,3 +1,5 @@
+package TwitchBot;
+
 
 /**
  * Contains info for a stat.

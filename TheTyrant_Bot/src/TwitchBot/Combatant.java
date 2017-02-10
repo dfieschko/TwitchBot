@@ -1,3 +1,5 @@
+package TwitchBot;
+
 
 /**
  * Parent to any combatant.

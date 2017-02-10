@@ -1,3 +1,5 @@
+package TwitchBot;
+
 
 /**
  * Hangman in Twitch Chat!

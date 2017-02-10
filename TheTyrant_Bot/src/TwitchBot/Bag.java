@@ -1,3 +1,5 @@
+package TwitchBot;
+
 
 /**
  * Your basic Bag class that doesn't use LinkedLists because I forgot how they work.
