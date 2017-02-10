@@ -341,7 +341,7 @@ public class TwitchBot extends PircBot
                         throw new IllegalArgumentException();
                     }
                     Config.hangman = new Hangman(message.split(" ")[1].toUpperCase());
-                    Config.timer.schedule(new TimerTask() 
+                    Config.timer.schedule(new TimerTask() //THE TIMER IS HERE
                     {
                         @Override
                         public void run() 
@@ -350,7 +350,7 @@ public class TwitchBot extends PircBot
                             sendMessage(Config.DEFAULT_CHANNEL, "You've run out of time and lost the Hangman game :( Word: " 
                                     + Config.hangman.getWord());
                         }
-                    }, 30 * 60000);
+                    }, 15 * 60000);
                     whisper(sender, " You have started a new game of Hangman using the word "
                             + message.split(" ")[1].toUpperCase());
                     sendMessage(Config.DEFAULT_CHANNEL, BAR + " A new game of Hangman has started! Use !hangman or !hm to guess letters! WORD: " + Config.hangman.toString());
