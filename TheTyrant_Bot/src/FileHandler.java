@@ -44,6 +44,13 @@ public class FileHandler {
         return b;
     }
     
+    /**
+     * Converts a Bag of Viewers into a JSON file for storage.
+     * @param filepath filepath of the file
+     * @param bag the Bag of viewers (see Bag.class)
+     * @return the File created
+     * @throws IOException if there's an issue finding the file.
+     */
     public File toFile(String filepath, Bag<Viewer> bag) throws IOException
     {
         wipeFile(filepath);

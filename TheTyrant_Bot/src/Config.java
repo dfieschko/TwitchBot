@@ -17,8 +17,8 @@ public class Config {
     public static final String PASSWORD = "oauth:e606tmnom560yng1y7q8jyt54sb9fe";//password; found at:
                                                                                  //http://twitchapps.com/tmi/
 
+    //TODO: add the option to toggle these
     private static boolean showRandomMessages = true;
-
     private static boolean showStartupMessage = false;
 
     public static Timer timer = new Timer();
@@ -31,7 +31,9 @@ public class Config {
     
     private static String lastRandMessage;
     
-    private static String[] lowChanceMsg =
+    //Messages that have a low chance to be displayed every minute
+    //See method randomMessage() and TwitchBot.nextMinute()
+    private static final String[] lowChanceMsg =
     {
         "if you don't play magic pen mundo you're pretty bad tbh",
         "#Girl Power!",
@@ -41,8 +43,8 @@ public class Config {
         "Watching Erick CS like OSsloth",
         "Fact: Bees like flowers. This means if you give a girl flowers and she likes them she is a swarm of bees in disguise."
     };
-    
-    private static String[] medChanceMsg = 
+    //Messages that have a medium chance to be displayed every minute
+    private static final String[] medChanceMsg = 
     {
         "League Pro Tip: You can reach your base faster if you recall instead of walking to it!",
         "League Pro Tip: If you are looking to win the game, try destroying the enemy team's nexus!",
@@ -55,8 +57,8 @@ public class Config {
         "League Pro Tip: You can definitely duel that 4/0 Riven.",
         "League Pro Tip: If you lose all of your health, you will die."
     };
-    
-    private static String[] highChanceMsg = 
+    //Messages that have a medium chance to be displayed every minute
+    private static final String[] highChanceMsg = 
     {
         "Use !info and !commandlist to learn more about me!",
         "PM me \"hangman WORD\" to start a Hangman game!",
@@ -141,12 +143,12 @@ public class Config {
      * easier to add to and modify in the future.
      */
     public static void randomMessage() {
-        int randy = randInt(1, 10);
-        if(randy == 1)
+        int randy = randInt(1, 10); // 1/10 chance to be displayed
+        if(randy == 1)              // please forgive the magic numbers
         {
             String word;
             randy = randInt(1, 100);
-            if(randy <= 20)
+            if(randy <= 20)     //low chance messages
             {
                 word = lowChanceMsg[randInt(lowChanceMsg.length - 1)];
                 if(word.equals(lastRandMessage))
@@ -154,7 +156,7 @@ public class Config {
                 bot.say(word);
                 lastRandMessage = word;
             }
-            else if(randy <= 55)
+            else if(randy <= 55) //medium chance messages
             {
                 word = medChanceMsg[randInt(medChanceMsg.length - 1)];
                 if(word.equals(lastRandMessage))
@@ -162,7 +164,7 @@ public class Config {
                 bot.say(word);
                 lastRandMessage = word;
             }
-            else
+            else                 //high chance messages
             {
                 word = highChanceMsg[randInt(highChanceMsg.length - 1)];
                 if(word.equals(lastRandMessage))

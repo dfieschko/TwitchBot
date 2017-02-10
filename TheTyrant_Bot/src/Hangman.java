@@ -31,6 +31,9 @@ public class Hangman {
         
     }
     
+    /**
+     * Instantly loses you the game.
+     */
     public void instaLose()
     {
         lives = 0;
@@ -44,11 +47,17 @@ public class Hangman {
         return lives;
     }
     
+    /**
+     * @return the number of letters left
+     */
     public int getLettersLeft()
     {
         return lettersLeft;
     }
     
+    /**
+     * @return true if the game is over, false if it is not
+     */
     public boolean isFinished()
     {
         return lettersLeft == 0 || lives == 0;
@@ -66,6 +75,11 @@ public class Hangman {
         return s;
     }
     
+    /**
+     * See if a letter has already been guessed.
+     * @param letter the letter being checked
+     * @return true if the letter has been guessed already, false if not.
+     */
     public boolean wasGuessed(String letter)
     {
         letter = letter.toUpperCase();
@@ -107,6 +121,9 @@ public class Hangman {
         return isRight;
     }
     
+    /**
+     * @return the word converted to a String, with unknown letters replaced with "_"
+     */
     @Override
     public String toString()
     {
@@ -121,6 +138,13 @@ public class Hangman {
         return str;
     }
     
+    /**
+     * Sees if an array of Strings contains a certain String, 
+     * since Java apparently doesn't have a method for that.
+     * @param array the array being checked against
+     * @param str the String being checked for
+     * @return true if the String is found, false if it is not.
+     */
     private boolean contains(String[] array, String str)
     {
         for (String array1 : array) {
@@ -131,6 +155,11 @@ public class Hangman {
         return false;
     }
     
+    /**
+     * Makes a String containing all the letters that have been guessed already,
+     * ready for outputting.
+     * @return String of letters that have been guessed
+     */
     public String getGuesses()
     {
         String str = "";

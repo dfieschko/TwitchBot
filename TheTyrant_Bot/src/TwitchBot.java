@@ -10,7 +10,7 @@ import org.jibble.pircbot.*;
 
 public class TwitchBot extends PircBot
 {	
-    
+    /** A solid bar that is one line long in Twitch chat. */
     private static final String BAR = "__________________________________________________";
     
 	/**
@@ -34,7 +34,7 @@ public class TwitchBot extends PircBot
 	
 	
 	/**
-	 * This deals with incoming messages. Should be self-explanatory.
+	 * This deals with incoming messages.
 	 */
         @Override
 	public void onMessage(String channel, String sender, String login, String hostname, String message)
@@ -42,11 +42,19 @@ public class TwitchBot extends PircBot
 		if(message.equalsIgnoreCase("this channel sucks") || message.equalsIgnoreCase("this stream sucks")) 
                                                                       //if someone says this in chat
 			sendMessage(channel, "no u " + sender);       //this happens
+                
+                /*
+                Stops the bot.
+                */
                 else if(message.equalsIgnoreCase("!stopbot") && isPrivileged(sender))
                 {
                     whisper(sender, "You have shut me down");
                     quitBot();
                 }
+                
+                /*
+                Gives someone gold. Requires privilege.
+                */
                 else if(message.contains("!givegold ") && isPrivileged(sender))
                 {
                     
@@ -66,6 +74,9 @@ public class TwitchBot extends PircBot
                     }
                 }
                 
+                /*
+                Gives someone exp. Requires privilege.
+                */
                 else if(message.contains("!giveexp ") || message.contains("!givexp ") && isPrivileged(sender))
                 {
                     
@@ -85,6 +96,9 @@ public class TwitchBot extends PircBot
                     }
                 }
                 
+                /*
+                Guesses a letter for Hangman.
+                */
                 else if(message.toLowerCase().contains("!hm ") || message.toLowerCase().contains("!hangman "))
                 {
                     if(Config.hangman.isFinished())
@@ -118,17 +132,24 @@ public class TwitchBot extends PircBot
                     }
                 }
                 
+                /*
+                Displays the requester's stats.
+                TODO: make this look less ugly in Twitch chat.
+                */
                 else if(message.equalsIgnoreCase("!stats"))
                 {
                     try{
                     int viewerID = Config.viewers.findViewer(sender);
                     say(BAR + " " + Config.viewers.get(viewerID).toString() +  " @" + sender);
-                    }catch(Exception e)
+                    }catch(Exception e) //don't judge me
                     {
                         say("I need a minute to load viewer data - please ask again later " + sender + ".");
                     }
                 }
                 
+                /*
+                Wishes someone luck if they ask for it.
+                */
                 else if(message.toLowerCase().contains("wish me luck"))
                 {
                     say("Good luck, " + sender + '!');
@@ -148,30 +169,45 @@ public class TwitchBot extends PircBot
 			sendMessage(channel, "Upgradeables: !SuperLoot, !UltraGuard, !Poison. Armour: !FireShield, !IceShield, !LightningShield. http://imgur.com/a/GGUin for more detailed information.");
                 
                 /*
-                 * Lists classes.
+                 * Lists classes. (Class as in class of warrior, not in the programming sense)
                  */
                 else if(message.equalsIgnoreCase("!classes"))
 			sendMessage(channel, "!DPS: add to the Attack Damage of the Twitch Warrior. "
                                 + "!Mage: add to the Magic Power of the Twitch Warrior. !Tank: add Health to the Twitch Warrior.");
                 
+                /*
+                Gives information for the DPS class.
+                */
                 else if(message.equalsIgnoreCase("!DPS"))
 			sendMessage(channel, "!DPS adds to the Attack Power of the Twitch Warrior, which boosts DPS abilities. "
                                 + "DPS skills are !Slash (70 gold) and !CrossSlash (160 gold). !levelup dps to level up in this class.");
                 
+                /*
+                Gives information for the Tank class.
+                */
                 else if(message.equalsIgnoreCase("!Tank"))
 			sendMessage(channel, "!Tank adds to the Health of the Twitch Warrior. "
                                 + "There are currently no Tank skills. !levelup tank to level up in this class."); 
                 
+                /*
+                Gives information for the Mage class.
+                */
                 else if(message.equalsIgnoreCase("!Mage") || message.equalsIgnoreCase("!Magic"))
 			sendMessage(channel, "!Mage adds to the Magic Power of the Twitch Warrior, which boosts Mage abilities."
                                 + "Mages support the Twitch Warrior with shields and heals, and deal some damage with spells."
                                 + "Mage skills are !HolyShield (100 gold), !Heal (60 gold), !Fire, !Ice, and !Lightning (80 gold). !levelup mage to level up in this class.");
                 
+                /*
+                Gives information for the supportive Mage subclass.
+                */
                 else if(message.equalsIgnoreCase("!Mage support") || message.equalsIgnoreCase("!Mage supp"))
                     sendMessage(channel, "Support spells don't deal damage to the enemy, but help the Twitch Warrior in other ways. "
                             + "!HolyShield (100 gold) provides a shield of 5 health and can only be used once per night. "
                             + "!Heal (60 gold) heals the Twitch Warrior by a value based on the Mage levels of both the Twitch Warrior and the caster.");
                 
+                /*
+                Gives information for the offensive Mage subclass.
+                */
                 else if(message.equalsIgnoreCase("!Mage attack") || message.equalsIgnoreCase("!Mage damage"))
                     sendMessage(channel, "Damage spells deal damage to the enemy. !Fire, !Ice, and !Lightning (80 gold) "
                             + "unleash a blast of flame, ice, and lightning, respectively.");
@@ -220,6 +256,13 @@ public class TwitchBot extends PircBot
 		
 	}
         
+        /**
+         * Reacts to any and all incoming messages from the Twitch chat.
+         * This is necessary because PircBot was last updated in 2009 and Twitch chat changed up
+         * their private messaging system in around 2014, which ruined PircBot's ability to
+         * receive whispers. Now I have to parse them on my own.
+         * @param line the incoming message from Twitch chat
+         */
         @Override
         public void onUnknown(String line)
         {
@@ -229,13 +272,19 @@ public class TwitchBot extends PircBot
             String sender = dooby[0];
             String message = scooby[scooby.length - 1];
 
+            //Reacts to private messages
             if(line.toUpperCase().contains("WHISPER"))
             {
                 onPrivateMessage(sender, message);
             }
         }
         
-
+        /**
+         * Reacts to private messages.
+         * Not using PircBot's method because it no longer works.
+         * @param sender the sender of the private message.
+         * @param message the message
+         */
 	public void onPrivateMessage(String sender, String message)
         {
             if(message.contains("hangman") || message.contains("!hangman"))
@@ -251,11 +300,22 @@ public class TwitchBot extends PircBot
             }
         }
         
+        /**
+         * Sends someone a whisper (PM).
+         * @param name the name of the person you're sending the message to
+         * @param message the message
+         */
         public void whisper(String name, String message)
         {
             sendMessage(Config.DEFAULT_CHANNEL, "/w " + name + " " + message);
         }
         
+        /**
+         * Says the input text into the default channel.
+         * This was just written for my convenience, since it's obnoxious to
+         * type or copy/paste sendMessage(Config.DEFAULT_CHANNEL, text); every time.
+         * @param text the text being said.
+         */
         public void say(String text)
         {
             sendMessage(Config.DEFAULT_CHANNEL, text);
@@ -325,13 +385,16 @@ public class TwitchBot extends PircBot
             System.out.println("Minute rewards given. Number of viewers: " + users.length + " New viewers: " + newUsers);
 	}
         
+        /**
+         * Saves info, leaves channel, and shuts down the bot.
+         */
         public void quitBot()
         {
             try{
                 new FileHandler().toFile("Viewers.json", Config.viewers);
             }catch(Exception e)
             {
-                e.printStackTrace();
+                e.printStackTrace(); //forgive me programming Jesus
             }
             quitServer();
             for(int i = 0; i < Config.viewers.getCount(); i++)
