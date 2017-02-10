@@ -148,7 +148,7 @@ public class Hangman {
     private boolean contains(String[] array, String str)
     {
         for (String array1 : array) {
-            if (array1.equals(str)) {
+            if (array1 != null && array1.equals(str)) {
                 return true;
             }
         }
