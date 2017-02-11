@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -33,9 +34,9 @@ public class FileHandler {
     public Bag<Viewer> getViewerList(String filepath) throws IOException, ParseException 
     {
         Bag<Viewer> b = new Bag();
-        
+        URL path = TwitchBot.class.getResource(filepath);
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader(filepath));
+        Object obj = parser.parse(new FileReader(path.getFile()));
         JSONArray jsonarray = (JSONArray) obj;
 
         for (int i = 0; i < jsonarray.size(); i++) 

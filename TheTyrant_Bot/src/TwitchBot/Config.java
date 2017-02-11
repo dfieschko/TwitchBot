@@ -68,7 +68,7 @@ public class Config {
         "Like what you're seeing? Follow the channel!",
         "You earn 1 exp and 1 gold per minute you watch - use !stats to see your current score!"
     };
-
+    
     /**
      * Main method. Instantiates the bot and sets it up to do its work.
      *
