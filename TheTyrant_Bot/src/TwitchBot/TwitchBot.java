@@ -1,10 +1,13 @@
 package TwitchBot;
 
 
+import java.io.IOException;
+import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jibble.pircbot.*;
+import org.json.simple.JSONObject;
 
 /**
  * TwitchBot class that has most of the controls for interacting with the audience.
@@ -16,6 +19,8 @@ public class TwitchBot extends PircBot
 {	
     /** A solid bar that is one line long in Twitch chat. */
     private static final String BAR = "__________________________________________________";
+    
+    private Timer timer = new Timer();
     
 	/**
 	 * Constructor. Uses default name. 
@@ -133,6 +138,7 @@ public class TwitchBot extends PircBot
                             say("You lost! The word: " + Config.hangman.getWord());
                         else
                             say("You guessed the word! Good job!");
+			timer.cancel();
                     }
                 }
                 
@@ -345,25 +351,33 @@ public class TwitchBot extends PircBot
                         throw new IllegalArgumentException();
                     }
                     Config.hangman = new Hangman(message.split(" ")[1].toUpperCase());
-                    Config.timer.schedule(new TimerTask() //THE TIMER IS HERE
-                    {
+		    TimerTask timerTask = new TimerTask()
+		    {
                         @Override
                         public void run() 
                         {
                             Config.hangman.instaLose();
                             sendMessage(Config.DEFAULT_CHANNEL, "You've run out of time and lost the Hangman game :( Word: " 
                                     + Config.hangman.getWord());
+			    this.cancel();
                         }
-                    }, 15 * 60000);
+                    };
+		    timer.schedule(timerTask, 15 * 60000);
+                    
                     whisper(sender, " You have started a new game of Hangman using the word "
                             + message.split(" ")[1].toUpperCase());
                     sendMessage(Config.DEFAULT_CHANNEL, BAR + " A new game of Hangman has started! Use !hangman or !hm to guess letters! WORD: " + Config.hangman.toString());
-                }catch(Exception e)
+                }catch(IllegalArgumentException e)
                 {
-                    sendMessage(sender, "Looks like you used incorrect syntax - correct syntax is \"hangman word\", "
+                    whisper(sender, "Looks like you used incorrect syntax - correct syntax is \"hangman word\", "
                             + "replacing \"word\" with the word you want to play with. The maximum size of the word is " 
                             + Hangman.MAX_CHARS + " characters.");
-                }
+                }catch(Exception e)
+		{
+		    whisper(sender, "Something got goofed. Try again. "
+			    + "If it still doesn't work, please message Erect_Gandalf "
+			    + "with a description of what you told me to do.");
+		}
         }
 	
 	/**
