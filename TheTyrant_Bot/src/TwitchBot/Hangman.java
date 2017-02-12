@@ -3,7 +3,7 @@ package TwitchBot;
 
 /**
  * Hangman in Twitch Chat!
- * @author Darius
+ * @author Darius Fieschko
  */
 public class Hangman {
     private static final int DEFAULT_LIVES = 10;

@@ -5,7 +5,7 @@ package TwitchBot;
  * Parent to any combatant.
  * The only combatants are probably going to be Enemy and TwitchWarrior,
  * but there can be others.
- * @author Darius
+ * @author Darius Fieschko
  */
 public class Combatant {
     

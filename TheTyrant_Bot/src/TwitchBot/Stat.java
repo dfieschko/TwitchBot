@@ -4,7 +4,7 @@ package TwitchBot;
 /**
  * Contains info for a stat.
  * I just made this so I wouldn't have to write a bajillion methods in Combatant
- * @author Darius
+ * @author Darius Fieschko
  */
 public class Stat {
     int level;

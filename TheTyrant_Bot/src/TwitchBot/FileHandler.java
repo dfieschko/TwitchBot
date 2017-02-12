@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
  * Parses JSON into stuff. Using a simple, open source JSON parser that I
  * already forgot the name of. It's pretty dank tho
  *
- * @author Darius
+ * @author Darius Fieschko
  */
 public class FileHandler {
     

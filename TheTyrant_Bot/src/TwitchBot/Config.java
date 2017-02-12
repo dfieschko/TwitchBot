@@ -10,7 +10,7 @@ import java.util.TimerTask;
  * Also contains the main method. And now contains a lot more stuff, too.
  * Honestly I probably should have called this Main or Instance or something
  *
- * @author Erect Gandalf
+ * @author Darius Fieschko
  */
 public class Config {
 

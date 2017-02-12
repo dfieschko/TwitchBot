@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 /**
  * TwitchBot class that has most of the controls for interacting with the audience.
  * I'm using PircBot to help me avoid suicidal thoughts.
- * @author Erect Gandalf
+ * @author Darius Fieschko
  */
 
 public class TwitchBot extends PircBot

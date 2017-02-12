@@ -3,7 +3,7 @@ package TwitchBot;
 
 /**
  * Your basic Bag class that doesn't use LinkedLists because I forgot how they work.
- * @author Darius
+ * @author Darius Fieschko
  * @param <E> is generic type
  */
 public class Bag<E> {

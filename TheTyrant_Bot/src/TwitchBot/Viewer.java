@@ -3,7 +3,7 @@ package TwitchBot;
 
 /**
  *
- * @author Darius
+ * @author Darius Fieschko
  */
 public class Viewer {
     
