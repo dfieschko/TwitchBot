@@ -43,7 +43,8 @@ public class Config {
         "Parenting Tip: Naming your son Moist Nuggets is probably a subpar move.",
         "Magic Pen Mundo is sleeper OP - try it in a ranked game today!",
         "Watching Erick CS like OSsloth",
-        "Fact: Bees like flowers. This means if you give a girl flowers and she likes them she is a swarm of bees in disguise."
+        "Fact: Bees like flowers. This means if you give a girl flowers and she likes them she is a swarm of bees in disguise.",
+	"League Pro Tip: If you don't own all the skins for your champion you have a 75% higher chance to lose the game."
     };
     //Messages that have a medium chance to be displayed every minute
     private static final String[] medChanceMsg = 

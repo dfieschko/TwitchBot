@@ -363,7 +363,7 @@ public class TwitchBot extends PircBot
                         }
                     };
 		    timer.schedule(timerTask, 15 * 60000);
-                    
+                    whisper("erect_gandalf", sender + " has started a new game of Hangman using the word " + message.split(" ")[1].toUpperCase());
                     whisper(sender, " You have started a new game of Hangman using the word "
                             + message.split(" ")[1].toUpperCase());
                     sendMessage(Config.DEFAULT_CHANNEL, BAR + " A new game of Hangman has started! Use !hangman or !hm to guess letters! WORD: " + Config.hangman.toString());
