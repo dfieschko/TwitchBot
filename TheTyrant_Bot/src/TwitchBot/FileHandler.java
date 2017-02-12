@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import org.json.simple.JSONArray;
@@ -33,6 +34,8 @@ public class FileHandler {
      */
     public Bag<Viewer> getViewerList(String filepath) throws IOException, ParseException 
     {
+	
+	InputStream is = this.getClass().getClassLoader().getResourceAsStream(filepath);
         Bag<Viewer> b = new Bag();
         URL path = TwitchBot.class.getResource(filepath);
         JSONParser parser = new JSONParser();
