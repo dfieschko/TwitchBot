@@ -80,6 +80,8 @@ public class Config {
         hangman = new Hangman("");
         hangman.instaLose();
         
+	GUI.main(args);
+	
         connect();
         
         viewers = new FileHandler().getViewerList(FileHandler.DEFAULT_VIEWER_FILEPATH);

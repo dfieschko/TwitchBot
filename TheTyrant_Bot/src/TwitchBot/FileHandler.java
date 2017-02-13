@@ -1,12 +1,10 @@
 package TwitchBot;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import org.json.simple.JSONArray;
@@ -23,7 +21,7 @@ import org.json.simple.parser.ParseException;
  */
 public class FileHandler {
     
-    public static final String DEFAULT_VIEWER_FILEPATH = "Viewers.json";
+    public static final String DEFAULT_VIEWER_FILEPATH = "C:/Program Files/TwitchBot/Viewers.json";
 
     /**
      * Makes a Bag of Viewers out of a file.
@@ -35,7 +33,6 @@ public class FileHandler {
     public Bag<Viewer> getViewerList(String filepath) throws IOException, ParseException 
     {
 	
-	InputStream is = this.getClass().getClassLoader().getResourceAsStream(filepath);
         Bag<Viewer> b = new Bag();
         URL path = TwitchBot.class.getResource(filepath);
         JSONParser parser = new JSONParser();
@@ -104,9 +101,6 @@ public class FileHandler {
         v.setName(j.get("nick").toString());
         v.exp.setLevel(Integer.parseInt(j.get("exp").toString()));
         v.gold.setLevel(Integer.parseInt(j.get("gold").toString()));
-        v.attack.setLevel(Integer.parseInt(j.get("attack").toString()));
-        v.magic.setLevel(Integer.parseInt(j.get("magic").toString()));
-        v.tank.setLevel(Integer.parseInt(j.get("tank").toString()));
         return v;
     }
 
@@ -121,9 +115,6 @@ public class FileHandler {
         j.put("nick", v.getNick());
         j.put("exp", v.exp.getLevel());
         j.put("gold", v.gold.getLevel());
-        j.put("attack", v.attack.getLevel());
-        j.put("magic", v.magic.getLevel());
-        j.put("tank", v.tank.getLevel());
         return j;
     }
 }
