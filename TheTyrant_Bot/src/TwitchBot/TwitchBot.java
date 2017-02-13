@@ -347,7 +347,7 @@ public class TwitchBot extends PircBot
                 try
                 {
 		    timer = new Timer();
-                    if(word.length() >= Hangman.MAX_CHARS)
+                    if(word.length() > Hangman.MAX_CHARS)
                     {
                         throw new IllegalArgumentException();
                     }
