@@ -83,8 +83,11 @@ public class Config {
 	GUI.main(args);
 	
         connect();
-        
-        viewers = new FileHandler().getViewerList(FileHandler.DEFAULT_VIEWER_FILEPATH);
+	try{
+	    viewers = new FileHandler().getViewerList(FileHandler.DEFAULT_VIEWER_FILEPATH);
+	}catch(Exception e)
+	{}
+
         
         timer.schedule(new TimerTask() {
             @Override

@@ -21,7 +21,7 @@ import org.json.simple.parser.ParseException;
  */
 public class FileHandler {
     
-    public static final String DEFAULT_VIEWER_FILEPATH = "C:/Program Files/TwitchBot/Viewers.json";
+    public static final String DEFAULT_VIEWER_FILEPATH = "C:/Program Files/Twitchbot/Viewers.json"; //holy shit this is janky
 
     /**
      * Makes a Bag of Viewers out of a file.
@@ -32,9 +32,9 @@ public class FileHandler {
      */
     public Bag<Viewer> getViewerList(String filepath) throws IOException, ParseException 
     {
-	
+	new File("C:/Program Files/Twitchbot").mkdirs(); //but it works
         Bag<Viewer> b = new Bag();
-        URL path = TwitchBot.class.getResource(filepath);
+        URL path = new File(filepath).toURI().toURL();
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(path.getFile()));
         JSONArray jsonarray = (JSONArray) obj;
