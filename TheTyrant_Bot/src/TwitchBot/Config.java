@@ -146,7 +146,7 @@ public class Config {
      * easier to add to and modify in the future.
      */
     public static void randomMessage() {
-        int randy = randInt(1, 10); // 1/10 chance to be displayed
+        int randy = randInt(1, 20); // 1/20 chance to be displayed
         if(randy == 1)              // please forgive the magic numbers
         {
             String word;
