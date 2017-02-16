@@ -78,10 +78,10 @@ public class TwitchBot extends PircBot {
     @Override
     public void onUnknown(String line) {
 
-        String[] scooby = line.split(":");
-        String[] dooby = scooby[1].split("!");
-        String sender = dooby[0];
-        String message = scooby[scooby.length - 1];
+        String[] aCol = line.split(":");
+        String[] aExc = aCol[1].split("!");
+        String sender = aExc[0];
+        String message = aCol[aCol.length - 1];
 
         //Reacts to private messages
         if (line.toUpperCase().contains("WHISPER")) {
@@ -108,6 +108,11 @@ public class TwitchBot extends PircBot {
      */
     public void say(String text) {
         sendMessage(channel, text);
+    }
+    
+    public String getChannel()
+    {
+        return channel;
     }
 
 }
