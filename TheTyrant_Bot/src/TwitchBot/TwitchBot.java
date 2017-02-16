@@ -1,13 +1,8 @@
 package TwitchBot;
 
-
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jibble.pircbot.*;
-import org.json.simple.JSONObject;
 
 /**
  * TwitchBot class that has most of the controls for interacting with the audience.
