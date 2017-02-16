@@ -67,7 +67,8 @@ public class Config {
         "PM me \"hangman WORD\" to start a Hangman game!",
         "Tune in every weekday 6PM-9PM PST!",
         "Like what you're seeing? Follow the channel!",
-        "You earn 1 exp and 1 gold per minute you watch - use !stats to see your current score!"
+        "You earn 1 exp and 1 gold per minute you watch - use !stats to see your current score!",
+	"Use \"!hm LETTER\" to guess a letter in Hangman!"
     };
     
     /**
