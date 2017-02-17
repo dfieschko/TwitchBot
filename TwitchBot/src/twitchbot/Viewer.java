@@ -2,12 +2,13 @@
 package twitchbot;
 
 import org.json.simple.JSONObject;
+import twitchbot.filehandler.JSONConversion;
 
 /**
  *
  * @author Darius
  */
-public class Viewer {
+public class Viewer implements JSONConversion{
     
     private String nick;
     private int timeWatched;
@@ -43,7 +44,8 @@ public class Viewer {
      * Creates a new JSONObject out of a Viewer.
      * @return JSONObject containing Viewer information
      */
-    public JSONObject toJSON() {
+    @Override
+    public JSONObject toJSONObject() {
         JSONObject j = new JSONObject();
         j.put("nick", nick);
         j.put("time", timeWatched);

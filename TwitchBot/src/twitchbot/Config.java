@@ -1,6 +1,7 @@
 
 package twitchbot;
 
+import twitchbot.filehandler.FileHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,27 +21,17 @@ public class Config {
     private static final String DIRECTORY_PATH = "";
     private static final String SETTINGS_PATH = DIRECTORY_PATH + "Settings.json";
     private static final String VIEWERS_PATH = DIRECTORY_PATH + "Viewers.json";
-    
-    private static FileHandler ViewerHandler;
-    private static FileHandler SettingsHandler;
-    
-    private static String[] messages;
+    private static final String COMMANDS_PATH = DIRECTORY_PATH + "Commands.json";
+
     
     public static void main(String args[])
     {
-        try {
-            ViewerHandler = new FileHandler(VIEWERS_PATH);
-            SettingsHandler = new FileHandler(SETTINGS_PATH);
-        } catch (IOException | ParseException ex) {
-            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         
-        viewers = ViewerHandler.getViewerList();
     }
     
     public static void stop()
     {
-        ViewerHandler.set(viewers);
         System.exit(0);
     }
     
