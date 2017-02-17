@@ -16,12 +16,18 @@ import twitchbot.Viewer;
  */
 public class ViewerHandler extends FileHandler{
     
+    /**
+     * Constructor, creates ViewerHandler based on a filepath.
+     * @param filepath
+     * @throws IOException
+     * @throws ParseException 
+     */
     public ViewerHandler(String filepath) throws IOException, ParseException
     {
         super(filepath);
     }
     
-    public final ArrayList<Viewer> getViewerList()
+    public final ArrayList<Viewer> toViewerList()
     {
         ArrayList arr = new ArrayList();
         for(int i = 0; i < array.size(); i++)
