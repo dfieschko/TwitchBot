@@ -1,4 +1,3 @@
-
 package twitchbot.filehandler;
 
 import java.io.IOException;
@@ -14,41 +13,36 @@ import twitchbot.Viewer;
  *
  * @author Darius
  */
-public class ViewerHandler extends FileHandler{
-    
+public class ViewerHandler extends FileHandler {
+
     /**
      * Constructor, creates ViewerHandler based on a filepath.
+     *
      * @param filepath
      * @throws IOException
-     * @throws ParseException 
+     * @throws ParseException
      */
-    public ViewerHandler(String filepath) throws IOException, ParseException
-    {
+    public ViewerHandler(String filepath) throws IOException, ParseException {
         super(filepath);
     }
-    
-    public final ArrayList<Viewer> toViewerList()
-    {
+
+    public final ArrayList<Viewer> toViewerList() {
         ArrayList arr = new ArrayList();
-        for(int i = 0; i < array.size(); i++)
-        {
+        for (int i = 0; i < array.size(); i++) {
             arr.add(new Viewer((JSONObject) array.get(i)));
         }
         return arr;
     }
-    
-    public JSONArray getJSONArray(ArrayList<Viewer> viewerArray)
-    {
+
+    public JSONArray getJSONArray(ArrayList<Viewer> viewerArray) {
         JSONArray temp = new JSONArray();
-        for(int i = 0; i < viewerArray.size(); i++)
-        {
+        for (int i = 0; i < viewerArray.size(); i++) {
             temp.add(viewerArray.get(i).toJSONObject());
         }
         return temp;
     }
-    
-    public final void set(ArrayList <Viewer> viewerArray)
-    {
+
+    public final void set(ArrayList<Viewer> viewerArray) {
         try {
             setArray(getJSONArray(viewerArray));
             update();

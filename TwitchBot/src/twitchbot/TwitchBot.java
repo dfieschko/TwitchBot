@@ -4,7 +4,6 @@ import java.io.IOException;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
 
-
 /**
  * TwitchBot class that has most of the controls for interacting with the
  * audience.
@@ -44,17 +43,9 @@ public class TwitchBot extends PircBot {
      */
     @Override
     public void onMessage(String channel, String sender, String login, String hostname, String message) {
-        if (message.contains("test")) {
-            say("acknowledge");
-        }
-        if(message.contains("stop"))
-        {
-            say("stopped");
-            quitServer();
-            System.exit(0);
-        }
+        
     }
-    
+
     /**
      * Reacts to private messages. Not using PircBot's method because it no
      * longer works.
@@ -100,8 +91,8 @@ public class TwitchBot extends PircBot {
     }
 
     /**
-     * Says the input text into the channel. This was just written for
-     * my convenience, since it's obnoxious to type or copy/paste
+     * Says the input text into the channel. This was just written for my
+     * convenience, since it's obnoxious to type or copy/paste
      * sendMessage(channel, text); every time.
      *
      * @param text the text being said.
@@ -109,9 +100,8 @@ public class TwitchBot extends PircBot {
     public void say(String text) {
         sendMessage(channel, text);
     }
-    
-    public String getChannel()
-    {
+
+    public String getChannel() {
         return channel;
     }
 
