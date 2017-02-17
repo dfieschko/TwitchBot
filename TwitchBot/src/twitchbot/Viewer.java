@@ -12,6 +12,12 @@ public class Viewer {
     private String nick;
     private int timeWatched;
     
+    public Viewer(JSONObject jObject)
+    {
+        nick = jObject.get("nick").toString();
+        timeWatched = Integer.parseInt(jObject.get("timeWatched").toString());
+    }
+    
     public Viewer(String nick)
     {
         this.nick = nick;
