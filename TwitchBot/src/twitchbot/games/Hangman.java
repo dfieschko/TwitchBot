@@ -7,14 +7,14 @@ package twitchbot.games;
  */
 public class Hangman {
     
-    private final char[] validChars = {
+    private static final char[] validChars = {
         'A','B','C','D','E','F','G','H',
         'I','J','K','L','M','N','O','P',
         'Q','R','S','T','U','V','W','X',
         'Y','Z'
     };
-    public final int MAX_LENGTH = 10;
-    private final int DEFAULT_LIVES = 10;
+    public static final int MAX_LENGTH = 10;
+    private static final int DEFAULT_LIVES = 10;
     
     private final char[] word;
     private char[] guesses = new char[26];
@@ -66,6 +66,7 @@ public class Hangman {
      */
     public boolean guess(String x)
     {
+        x = x.toUpperCase();
         if(x.toCharArray() == word)
         {
             numGuesses++;
@@ -98,7 +99,6 @@ public class Hangman {
     {
         if(wasGuessed(x))
             throw new IllegalArgumentException("Already guessed!");
-        numGuesses++;
         boolean correct = false;
         for(int i = 0; i < word.length; i++)
         {
@@ -111,6 +111,7 @@ public class Hangman {
         if(!correct)
             lives--;
         guesses[numGuesses] = x;
+        numGuesses++;
         return correct;
     }
     
@@ -154,7 +155,7 @@ public class Hangman {
      */
     private boolean wasGuessed(char x)
     {
-        for(int i = 0; i < numGuesses; i++)
+        for(int i = 0; i <= numGuesses; i++)
             if(x == guesses[i])
                 return true;
         return false;
@@ -187,6 +188,9 @@ public class Hangman {
         return str;
     }
     
+    /**
+     * @return the complete word
+     */
     public String getWord()
     {
         String str = "";
@@ -195,6 +199,21 @@ public class Hangman {
             str += word[i];
         }
         return str;
+    }
+    
+    /**
+     * @return Non-complete word as String with non-guessed letters displayed as "_" with spaces between them.
+     */
+    @Override
+    public String toString()
+    {
+        String str = "";
+        for(int i = 0; i < guessedWord.length; i++)
+        {
+            str += guessedWord[i];
+            str += " ";
+        }
+        return str.trim();
     }
     
     /**

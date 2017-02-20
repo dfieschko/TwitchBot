@@ -94,11 +94,11 @@ public class TwitchBot extends PircBot implements JSONConversion {
                     say("Your guess was correct, " + sender + "! You have won! Good job!");
                     say("The word was " + hangman.getWord());
                 } else {
-                    say(message + " was correct! " + hangman.getGuessedString());
+                    say(message + " was correct! " + hangman.toString());
                 }
             }
         } catch (IllegalArgumentException e) {
-            say(e.getMessage() + " " + sender + ". Guessed letters: " + hangman.getGuessedString());
+            say(e.getMessage() + " " + sender + " Guessed letters: " + hangman.getGuessedString());
             
         }
     }
@@ -111,7 +111,7 @@ public class TwitchBot extends PircBot implements JSONConversion {
      * @param message 
      */
     private void startHangman(String sender, String message) {
-        if(hangman.inProgress())
+        if(hangman != null && hangman.inProgress())
         {
             whisper(sender, "There is already a hangman game in progress.");
             return;
@@ -119,12 +119,13 @@ public class TwitchBot extends PircBot implements JSONConversion {
         try{
             Hangman tempman = new Hangman(message);
             hangman = tempman; //don't "fix" this
+            say("A new game of Hangman has started! " + hangman.toString());
         }catch(IllegalArgumentException e)
         {
             whisper(sender, e.getMessage());
             whisper(sender, "Hangman only accepts the 26 letters of the "
                     + "English alphabet, and has a maximum character limit of "
-                    + hangman.MAX_LENGTH + ".");
+                    + Hangman.MAX_LENGTH + ".");
         }
         
     }
@@ -144,13 +145,17 @@ public class TwitchBot extends PircBot implements JSONConversion {
         }
         String[] splitSpaces = message.split(" ");
         String command = splitSpaces[0];
-        String arg1 = splitSpaces[1];
+        String arg1 = null;
+        if(splitSpaces.length > 0)
+            arg1 = splitSpaces[1];
         
         /* START HANGMAN GAME */
         if(command.equalsIgnoreCase("!hangman"))
         {
             startHangman(sender, arg1);
         }
+        else if(command.equalsIgnoreCase("stopbot"))
+            Config.quit();
     }
 
     /**

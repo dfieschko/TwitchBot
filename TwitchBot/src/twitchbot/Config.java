@@ -14,8 +14,26 @@ public class Config {
     
     //toggleable settings use this convention
     public static boolean Hangman_Enabled = true;
+    
+    
+    
+    //these are all temporary
+    public static final String DEFAULT_CHANNEL = "#thetyrant_lol";               //target channel
+    public static final String DEFAULT_NAME = "thetyrant_bot";                   //username
+    public static final String PASSWORD = "oauth:e606tmnom560yng1y7q8jyt54sb9fe";
 
     public static void main(String args[]) {
-        
+        try{
+            bot = new TwitchBot(DEFAULT_NAME, PASSWORD, DEFAULT_CHANNEL);
+        }catch(Exception e)
+        {
+            System.out.println("you're fucked");
+        }
+    }
+    
+    public static void quit()
+    {
+        bot.quit();
+        System.exit(0);
     }
 }
