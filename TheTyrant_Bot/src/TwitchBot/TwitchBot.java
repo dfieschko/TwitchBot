@@ -43,6 +43,11 @@ public class TwitchBot extends PircBot
         @Override
 	public void onMessage(String channel, String sender, String login, String hostname, String message)
 	{   
+//	    say(channel);
+//	    say(sender);
+//	    say(login);
+//	    say(hostname);
+//	    say(message);
 		if(message.equalsIgnoreCase("this channel sucks") || message.equalsIgnoreCase("this stream sucks")) 
                                                                       //if someone says this in chat
 			sendMessage(channel, "no u " + sender);       //this happens
