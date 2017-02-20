@@ -2,8 +2,6 @@ package twitchbot.filehandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -13,7 +11,11 @@ import twitchbot.Viewer;
  *
  * @author Darius
  */
-public class ViewerHandler extends FileHandler {
+public class ViewerHandler extends FileHandler implements Iterable{
+    
+    private static final String VIEWER_TAG = "viewer";
+    private static final String NICK_TAG = "nick";
+    private static final String TIME_TAG = "timeWatched";
 
     /**
      * Constructor, creates ViewerHandler based on a filepath.
@@ -27,9 +29,10 @@ public class ViewerHandler extends FileHandler {
     }
 
     public final ArrayList<Viewer> toViewerList() {
+        JSONArray jArr = (JSONArray) object.get(VIEWER_TAG);
         ArrayList arr = new ArrayList();
-        for (int i = 0; i < array.size(); i++) {
-            arr.add(new Viewer((JSONObject) array.get(i)));
+        for (int i = 0; i < jArr.size(); i++) {
+            arr.add(new Viewer((JSONObject) jArr.get(i)));
         }
         return arr;
     }
@@ -43,11 +46,14 @@ public class ViewerHandler extends FileHandler {
     }
 
     public final void set(ArrayList<Viewer> viewerArray) {
-        try {
-            setArray(getJSONArray(viewerArray));
-            update();
-        } catch (IOException ex) {
-            Logger.getLogger(FileHandler.class.getName()).log(Level.SEVERE, null, ex);
+        JSONObject obj = new JSONObject();
+        for(int i = 0; i < viewerArray.size(); i++)
+        {
+            JSONObject vObj = new JSONObject();
+            vObj.put(NICK_TAG, viewerArray.get(i).getNick());
+            vObj.put(TIME_TAG, viewerArray.get(i).getTimeWatched());
+            obj.put(VIEWER_TAG, vObj);
         }
+        object = obj;
     }
 }

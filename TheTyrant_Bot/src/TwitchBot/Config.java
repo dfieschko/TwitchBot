@@ -18,10 +18,10 @@ public class Config {
     public static final String DEFAULT_NAME = "thetyrant_bot";                   //username
     public static final String PASSWORD = "oauth:e606tmnom560yng1y7q8jyt54sb9fe";//password; found at:
                                                                                  //http://twitchapps.com/tmi/
-
+										 //putting this on github was definitely a good idea
     //TODO: add the option to toggle these
-    private static boolean showRandomMessages = true;
-    private static boolean showStartupMessage = false;
+    private static final boolean showRandomMessages = true;
+    private static final boolean showStartupMessage = false;
 
     public static Timer timer = new Timer();
     

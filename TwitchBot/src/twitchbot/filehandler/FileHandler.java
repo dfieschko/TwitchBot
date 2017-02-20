@@ -19,11 +19,12 @@ import org.json.simple.parser.ParseException;
  *
  * @author Darius Fieschko
  */
-public class FileHandler {
+public abstract class FileHandler {
 
     protected File file;
-    protected JSONArray array;
-    protected JSONObject object;
+    protected JSONArray jArray; //contains everything in the file.
+                                //edit jArray to change things, and quit() and
+                                //update() will write jArray to the file.
 
     /**
      * Constructor. Loads information from a JSON file, if it exists. If the
@@ -35,19 +36,20 @@ public class FileHandler {
      * @throws IOException error reading the file
      * @throws ParseException file is not formatted for JSON correctly
      */
-    public FileHandler(String filepath) throws FileNotFoundException, IOException, ParseException {
+    protected FileHandler(String filepath) throws FileNotFoundException, IOException, ParseException {
         JSONParser parser = new JSONParser();
         file = new File(filepath);
         if (file.createNewFile()) {
             return;
         }
         Object obj = parser.parse(new FileReader(file));
-        object = (JSONObject) obj;
-        array = (JSONArray) obj;
+        jArray = (JSONArray) obj;
     }
+    
+    protected abstract void update();
 
     /**
-     * @return filepath
+     * @return file path
      */
     public String getFilepath() {
         return file.getAbsolutePath();
@@ -70,41 +72,23 @@ public class FileHandler {
      *
      * @throws IOException
      */
-    public void update() throws IOException {
+    public void quit() throws IOException {
+        update();
         wipeFile();
         FileWriter writer = new FileWriter(getFilepath());
-        writer.write(array.toJSONString());
+        writer.write(jArray.toJSONString());
         writer.flush();
     }
 
-    public void updateInfo() {
+    public void readInfo() {
         try {
             JSONParser parser = new JSONParser();
             file = new File(getFilepath());
             Object obj = parser.parse(new FileReader(file));
-            object = (JSONObject) obj;
-            array = (JSONArray) obj;
+            jArray = (JSONArray) obj;
         } catch (IOException | ParseException ex) {
             Logger.getLogger(SettingsHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    /**
-     * Overwrites the JSONArray with a new one.
-     *
-     * @param array the new array
-     */
-    public void setArray(JSONArray array) {
-        this.array = array;
-    }
-
-    /**
-     * Overwrites the JSONObject with a new one.
-     *
-     * @param object the new object
-     */
-    public void setObject(JSONObject object) {
-        this.object = object;
     }
 
     /**
@@ -115,17 +99,10 @@ public class FileHandler {
     }
 
     /**
-     * @return the JSONArray object associated with this FileHandler.
-     */
-    public JSONArray getJSONArray() {
-        return array;
-    }
-
-    /**
      * @return the JSONObject associated with this FileHandler.
      */
-    public JSONObject getJSONObject() {
-        return object;
+    public JSONArray getJSONArray() {
+        return jArray;
     }
 
 }

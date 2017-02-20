@@ -46,8 +46,12 @@ public class Config {
     public static void main(String args[]) {
         try {
             viewerHandler = new ViewerHandler(VIEWERS_PATH);
+            viewers = viewerHandler.toViewerList();
+            
+            
             settingsHandler = new SettingsHandler(SETTINGS_PATH);
             timer.schedule(checkQuit, 5 * SECONDS); //checks to see if someone decided to stop the bot every 5 seconds
+            
         } catch (IOException | ParseException ex) {
             Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
             stop(true);
@@ -55,6 +59,12 @@ public class Config {
     }
 
     public static void stop() {
+        try {
+            viewerHandler.quit();
+            settingsHandler.quit();
+        } catch (IOException ex) {
+            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(0);
     }
     
@@ -62,7 +72,7 @@ public class Config {
     {
         if(!error)
             stop();
-        if(error)
+        else
             System.exit(1);
     }
 
