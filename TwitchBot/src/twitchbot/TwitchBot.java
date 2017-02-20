@@ -146,7 +146,7 @@ public class TwitchBot extends PircBot implements JSONConversion {
         String[] splitSpaces = message.split(" ");
         String command = splitSpaces[0];
         String arg1 = null;
-        if(splitSpaces.length > 0)
+        if(splitSpaces.length > 1)
             arg1 = splitSpaces[1];
         
         /* START HANGMAN GAME */
@@ -154,7 +154,7 @@ public class TwitchBot extends PircBot implements JSONConversion {
         {
             startHangman(sender, arg1);
         }
-        else if(command.equalsIgnoreCase("stopbot"))
+        else if(command.equalsIgnoreCase("!stopbot"))
             Config.quit();
     }
 
