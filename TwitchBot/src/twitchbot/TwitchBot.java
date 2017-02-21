@@ -60,7 +60,7 @@ public class TwitchBot extends PircBot implements JSONConversion {
         message = message.trim(); //removes leading and trailing whitespace
         if (!message.startsWith("!")) //checks if it's a command and returns if it's not
         {                             //commands start with ! currently
-            return;                  
+            return;
         }
         String[] splitSpaces = message.split(" ");
         String command = splitSpaces[0];
@@ -99,35 +99,32 @@ public class TwitchBot extends PircBot implements JSONConversion {
             }
         } catch (IllegalArgumentException e) {
             say(e.getMessage() + " " + sender + " Guessed letters: " + hangman.getGuessedString());
-            
+
         }
     }
-    
-    
+
     /**
-     * Starts a new Hangman game.
-     * If there's already a hangman 
+     * Starts a new Hangman game. If there's already a hangman
+     *
      * @param sender
-     * @param message 
+     * @param message
      */
     private void startHangman(String sender, String message) {
-        if(hangman != null && hangman.inProgress())
-        {
+        if (hangman != null && hangman.inProgress()) {
             whisper(sender, "There is already a hangman game in progress.");
             return;
         }
-        try{
+        try {
             Hangman tempman = new Hangman(message);
             hangman = tempman; //don't "fix" this
-            say("A new game of Hangman has started! " + hangman.toString());
-        }catch(IllegalArgumentException e)
-        {
+            say("A new game of Hangman has started! " + hangman.toString() + " Use !hm or !hangman to guess letters!");
+        } catch (IllegalArgumentException e) {
             whisper(sender, e.getMessage());
             whisper(sender, "Hangman only accepts the 26 letters of the "
                     + "English alphabet, and has a maximum character limit of "
                     + Hangman.MAX_LENGTH + ".");
         }
-        
+
     }
 
     /**
@@ -141,21 +138,21 @@ public class TwitchBot extends PircBot implements JSONConversion {
         message = message.trim(); //removes leading and trailing whitespace
         if (!message.startsWith("!")) //checks if it's a command and returns if it's not
         {                             //commands start with ! currently
-            return;                  
+            return;
         }
         String[] splitSpaces = message.split(" ");
         String command = splitSpaces[0];
         String arg1 = null;
-        if(splitSpaces.length > 1)
+        if (splitSpaces.length > 1) {
             arg1 = splitSpaces[1];
-        
-        /* START HANGMAN GAME */
-        if(command.equalsIgnoreCase("!hangman"))
-        {
-            startHangman(sender, arg1);
         }
-        else if(command.equalsIgnoreCase("!stopbot"))
+
+        /* START HANGMAN GAME */
+        if (command.equalsIgnoreCase("!hangman")) {
+            startHangman(sender, arg1);
+        } else if (command.equalsIgnoreCase("!stopbot")) {
             Config.quit();
+        }
     }
 
     /**
