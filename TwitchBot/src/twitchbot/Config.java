@@ -18,7 +18,7 @@ public class Config {
     
     
     //these are all temporary
-    public static final String DEFAULT_CHANNEL = "#thetyrant_lol";               //target channel
+    public static final String DEFAULT_CHANNEL = "#erect_gandalf";               //target channel
     public static final String DEFAULT_NAME = "thetyrant_bot";                   //username
     public static final String PASSWORD = "oauth:e606tmnom560yng1y7q8jyt54sb9fe";
 

@@ -67,7 +67,7 @@ public class Hangman {
     public boolean guess(String x)
     {
         x = x.toUpperCase();
-        if(x.toCharArray() == word)
+        if(java.util.Arrays.equals(x.toCharArray(), word))
         {
             numGuesses++;
             guessedWord = word;
@@ -223,7 +223,7 @@ public class Hangman {
      */
     public boolean hasWon()
     {
-        return guessedWord == word;
+        return java.util.Arrays.equals(guessedWord, word);
     }
     
 }
