@@ -64,7 +64,10 @@ public class TwitchBot extends PircBot implements JSONConversion {
         }
         String[] splitSpaces = message.split(" ");
         String command = splitSpaces[0];
-        String arg1 = splitSpaces[1];
+        String arg1 = null;
+        if (splitSpaces.length > 0) {
+            arg1 = splitSpaces[1];
+        }
 
         /* HANGMAN */
         if (command.equalsIgnoreCase("!hm") || command.equalsIgnoreCase("!hangman")) {
@@ -96,6 +99,8 @@ public class TwitchBot extends PircBot implements JSONConversion {
                 } else {
                     say(message + " was correct! " + hangman.toString());
                 }
+            } else {
+                say(message + " was incorrect! " + hangman.getLives() + " lives left!");
             }
         } catch (IllegalArgumentException e) {
             say(e.getMessage() + " " + sender + " Guessed letters: " + hangman.getGuessedString());
@@ -147,11 +152,15 @@ public class TwitchBot extends PircBot implements JSONConversion {
             arg1 = splitSpaces[1];
         }
 
-        /* START HANGMAN GAME */
+        //START HANGMAN GAME
         if (command.equalsIgnoreCase("!hangman")) {
             startHangman(sender, arg1);
-        } else if (command.equalsIgnoreCase("!stopbot")) {
+        } //STOP BOT
+        if (command.equalsIgnoreCase("!stopbot")) {
             Config.quit();
+        } //!SAY
+        if (message.contains("!say ") && Config.isPrivileged(sender)) {
+            say(message.split("!say ")[1]);
         }
     }
 
@@ -166,11 +175,11 @@ public class TwitchBot extends PircBot implements JSONConversion {
      */
     @Override
     public void onUnknown(String line) {
-        //TODO: Improve readability
-        String[] aCol = line.split(":");
-        String[] aExc = aCol[1].split("!");
-        String sender = aExc[0];
-        String message = aCol[aCol.length - 1];
+        //TODO: Make more readable
+        String[] scooby = line.split(":");
+        String[] dooby = scooby[1].split("!");
+        String sender = dooby[0];
+        String message = scooby[scooby.length - 1];
 
         //Reacts to private messages
         if (line.toUpperCase().contains("WHISPER")) {

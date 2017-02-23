@@ -9,6 +9,10 @@ import org.json.simple.JSONObject;
  */
 public interface JSONConversion {
     
+    /**
+     * Store information in a JSONObject
+     * @return JSONObject containing information for this object.
+     */
     public abstract JSONObject toJSONObject();
             
 }
