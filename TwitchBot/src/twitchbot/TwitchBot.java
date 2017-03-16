@@ -52,7 +52,8 @@ public class TwitchBot extends PircBot implements JSONConversion {
     }
 
     /**
-     * This deals with incoming messages. Use if(message.contains() ||
+     * This deals with incoming messages. 
+     * Use if(message.contains() ||
      * message.equalsIgnoreCase()), etc
      */
     @Override
